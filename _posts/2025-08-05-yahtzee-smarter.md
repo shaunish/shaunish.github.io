@@ -97,6 +97,6 @@ In fact, we can see that Strategy 3 results in a mean score that is 0.81013 high
 If you want to try this out for yourself, or have a deeper look, all of the code is available at my [github page](https://github.com/shaunish/yahtzee). And next family gathering, I'm going to suggest we play Yahtzee - and get my revenge.
 
 
-[^1] Why just four of a kind rolls for fours, fives, and sixes? Well, five of a kind are Yahtzee rolls - we don't want to mess with those. If it's our first Yahtzee, then we want to just use the Yahtzee category for our 50 points. For subsequent Yahtzee rolls, the rules require the corresponding upper section category be chosen anyway. 
+[^1]: Why just four of a kind rolls for fours, fives, and sixes? Well, five of a kind are Yahtzee rolls - we don't want to mess with those. If it's our first Yahtzee, then we want to just use the Yahtzee category for our 50 points. For subsequent Yahtzee rolls, the rules require the corresponding upper section category be chosen anyway. 
 
 Note that 63 is the score in the upper section that results from three of a kind for each upper section category. So if we can get a four of a kind for some of the higher value categories, which are the biggest contributors to the score, then we should be able to get the bonus more often. Plausibly, forcing higher value three of a kind to the upper section might be a net positive to score as well - that might be a later experiment.
