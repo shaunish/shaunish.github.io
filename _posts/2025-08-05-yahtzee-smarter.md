@@ -7,7 +7,7 @@ excerpt: What's the best strategy for playing the game of Yahtzee? Let's find ou
 
 Growing up, we were a Yahtzee family. I have fond memories of fervently shaking the dice in a plastic cup, hoping for that elusive Yahtzee. Entirely too often, that Yahtzee never came, and I would end up losing yet again to my sister. So now that I'm a grown adult, I thought I would finally figure out what I did wrong as a kid, and use Monte Carlo simulation to find the best strategy.
 
-## A Full Description Of The Rules Of Yahtzee:
+## A Full Description Of The Rules Of Yahtzee
 
 What follows is a refresher of the rules of Yahtzee, mostly cribbed from Wikipedia. Feel free to skip ahead if you're already familiar, or if you just want to get to the fun stuff.
 
@@ -29,7 +29,7 @@ Additionally, a Yahtzee can be used as a *Joker* for the Full House, Large Strai
 
 If any of that was confusing, don't worry - I was halfway into coding this when I realized I had been implementing the Jokers incorrectly and had to backtrack. If you'd prefer a man patiently explain the rules over slo-mo shots of rolling dice, [this](https://www.youtube.com/watch?v=5Zzttnc4C8w) might be more to your taste.
 
-## Implementing The Game Of Yahtzee In Python: 
+## Implementing Yahtzee In Python
 
 Our first task is to take the rules as written above, and translate them into code. Like many games, Yahtzee consists of small, repeating loops that are used as building blocks for the complete game. For this game, the smallest building block is the dice roll. Three rolls form a turn, and thirteen turns form a game. So at a high level, all we have to do is recreate the dice rolls, package them together to form a turn, then package the turns together until we have a full game. For now, we won't worry about the strategy - we'll just focus on the structure of the game itself.
 
