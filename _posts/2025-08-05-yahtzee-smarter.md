@@ -15,13 +15,13 @@ The game consists of thirteen turns, and the objective is to achieve the highest
 
 The upper section contains these six categories:
 
-![Upper section categories in Yahtzee](upper_categories.png)
+![Upper section categories in Yahtzee](images/yahtzee/upper_categories.png)
  
 If a player achieves a score of at least 63 in the upper section, they receive an additional 35 point bonus.  
 
 The lower section contains these categories:
 
-![Lower section categories in Yahtzee](lower_categories.png)
+![Lower section categories in Yahtzee](images/yahtzee/lower_categories.png)
 
 A player may choose a category even if their dice do not fulfill the requirements of that category and receive a score of zero. Once a player uses a category, they fill in the score box for that category and cannot use that category again in this game. However, if a player has already filled their Yahtzee box with a score of 50, if they later get another Yahtzee, then they get a Yahtzee bonus of 100 points, and then pick a separate category to fill in, as usual. If the upper section category for the Yahtzee roll has not been filled in, then that category must be chosen. 
 
@@ -78,25 +78,23 @@ Dumb Yahtzee is okay. We could use it to get through any friendly game of Yahtze
 
 Smarter Yahtzee is a clear and obvious improvement over Dumb Yahtzee. But can we make it better? The low-hanging fruit might be picked, but there still may be improvements to be made. Let's make just one small tweak to Smarter Yahtzee, and see if it improves our score.
 
-Recall that the player receives a bonus of 35 points if the upper section score is at least 63 at the end of the game. What if we attempt to increase the chance of receiving this bonus, even at the cost of lowering our score elsewhere? Let's automatically choose the upper section category for four of a kind rolls[^1] with sixes, fives, or fours, assuming that the upper section category has not yet been played. Before we run the simulation, it's unclear whether this is actually an improvement over Smarter Yahtzee. While this does increase the chance of an upper section bonus, it is easy to see that it will also lower the average score from the Four of a Kind category (which are now more likely to score with ones, twos, or threes, if at all). Let's see how it actually performs.
+Recall that the player receives a bonus of 35 points if the upper section score is at least 63 at the end of the game. What if we attempt to increase the chance of receiving this bonus, even at the cost of lowering our score elsewhere? Let's automatically choose the upper section category for four of a kind rolls ([^1]) with sixes, fives, or fours, assuming that the upper section category has not yet been played. Before we run the simulation, it's unclear whether this is actually an improvement over Smarter Yahtzee. While this does increase the chance of an upper section bonus, it is easy to see that it will also lower the average score from the Four of a Kind category (which are now more likely to score with ones, twos, or threes, if at all). Let's see how it actually performs.
 
 ## Running The Monte Carlo Simulation
 
 The strategies outlined above are implemented as a Python script, which will automatically play the complete game and record the resulting score. Each strategy is run 100,000 times, and the mean and the variance of the scores of each strategy is captured. Let's see how they did. 
 
-![Table of Results](results_table.png)
+![Table of Results](images/yahtzee/results_table.png)
 
-It's clear, as predicted, that Strategy 2 and Strategy 3 are a large improvement over Strategy 1. The number of upper section bonuses is also included in the table, and it is evident that Strategy 3 does result in an increase in upper section bonuses. More concretely, Strategy 3 resulted in 6.374% of the runs scoring the additional bonus(which is lower than I expected - maybe there's a way to improve this even more?), compared to 2.765% in Strategy 2. We might think that the score for Strategy 3 should increase by an expected (35 points * (0.06374 - 0.02765)) = 1.26 points over Strategy 2; but this is really an upper bound for the increase in score, as optimizing for a higher score in the upper section should lower the score in lower section categories, as mentioned before. 
+It's clear, as predicted, that Strategy 2 and Strategy 3 are a large improvement over Strategy 1. The number of upper section bonuses is also included in the table, and it is evident that Strategy 3 does result in an increase in upper section bonuses. More concretely, Strategy 3 resulted in 6.374% of the runs scoring the additional bonus (which is lower than I expected - maybe there's a way to improve this even more?), compared to 2.765% in Strategy 2. We might think that the score for Strategy 3 should increase by an expected (35 points * (0.06374 - 0.02765)) = 1.26 points over Strategy 2; but this is really an upper bound for the increase in score, as optimizing for a higher score in the upper section should lower the score in lower section categories, as mentioned before. 
 
 In fact, we can see that Strategy 3 results in a mean score that is 0.81013 higher than Strategy 2! Since the true distribution of scores is unknown (we can observe from the histograms below that scores are non-normal; they have a long, heavy right-tail and a light left tail), we can use a non-parametric test to determine if this result is statistically significant. If we use the Mann-Whitney U test for independent samples to compare the scores from Strategy 2 and Strategy 3 with a standard alpha value of 0.05, Strategy 3 results in a higher score with a p-value of 0.036. Since this is below the chosen alpha value, we can conclude that Strategy 3 results in a small but statistically significant improvement in score. So yes, Strategy 3 turns out to be the smartest Yahtzee strategy.
 
-![Histograms for Strategies 1 and 2](dumb_smarter_histogram.png)
+![Histograms for Strategies 1 and 2](images/yahtzee/dumb_smarter_histogram.png)
 
-![Histogram for Strategy 3](smartest_histogram.png)
+![Histogram for Strategy 3](images/yahtzee/smartest_histogram.png)
 
 If you want to try this out for yourself, or have a deeper look, all of the code is available at my [github page](https://github.com/shaunish/yahtzee). And next family gathering, I'm going to suggest we play Yahtzee - and get my revenge.
 
 
-[^1]: Why just four of a kind rolls for fours, fives, and sixes? Well, five of a kind are Yahtzee rolls - we don't want to mess with those. If it's our first Yahtzee, then we want to just use the Yahtzee category for our 50 points. For subsequent Yahtzee rolls, the rules require the corresponding upper section category be chosen anyway. 
-
-Note that 63 is the score in the upper section that results from three of a kind for each upper section category. So if we can get a four of a kind for some of the higher value categories, which are the biggest contributors to the score, then we should be able to get the bonus more often. Plausibly, forcing higher value three of a kind to the upper section might be a net positive to score as well - that might be a later experiment.
+[^1]: Why just four of a kind rolls for fours, fives, and sixes? Well, five of a kind are Yahtzee rolls - we don't want to mess with those. If it's our first Yahtzee, then we want to just use the Yahtzee category for our 50 points. For subsequent Yahtzee rolls, the rules require the corresponding upper section category be chosen anyway. Note that 63 is the score in the upper section that results from three of a kind for each upper section category. So if we can get a four of a kind for some of the higher value categories, which are the biggest contributors to the score, then we should be able to get the bonus more often. Plausibly, forcing higher value three of a kind to the upper section might be a net positive to score as well - that might be a later experiment.
