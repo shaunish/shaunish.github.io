@@ -5,11 +5,11 @@ categories: [Simulation,Data Analytics,Python]
 excerpt: What's the best strategy for playing the game of Yahtzee? Let's find out, using the power of Python and statistics!
 ---
 
-Growing up, we were a Yahtzee family. I have fond memories of fervently shaking the dice in a plastic cup, hoping for that elusive Yahtzee. Entirely too often, that Yahtzee never came, and I would end up losing yet again to my sister. So now that I'm a grown adult, I thought I would finally figure out what I did wrong as a kid, and use Monte Carlo simulation to find the best strategy.
+Growing up, we were a Yahtzee family. I have fond memories of fervently shaking dice in a plastic cup, hoping for that elusive Yahtzee. Entirely too often, that Yahtzee never came, and I would end up losing yet again, usually to my sister. So now that I'm a grown adult, I thought I would finally figure out what I did wrong as a kid, and use Monte Carlo simulation to find the best strategy.
 
 ## A Full Description Of The Rules Of Yahtzee
 
-What follows is a refresher of the rules of Yahtzee, mostly cribbed from Wikipedia. Feel free to skip ahead if you're already familiar, or if you just want to get to the fun stuff.
+What follows is a refresher of the rules of Yahtzee, mostly cribbed from [Wikipedia](https://en.wikipedia.org/wiki/Yahtzee). Feel free to skip ahead if you're already familiar, or if you just want to get to the fun stuff.
 
 The game consists of thirteen turns, and the objective is to achieve the highest possible score. Each turn, the player rolls 5 dice. Then, they can choose which of the five dice to *hold*, rolling the remaining dice again. They repeat this process once more, rolling a total of three times per turn. Then, the player must choose one of the thirteen possible categories to score their dice. These are divided into an upper section and a lower section on the scoresheet. 
 
@@ -23,11 +23,13 @@ The lower section contains these categories:
 
 ![Lower section categories in Yahtzee](/images/yahtzee/lower_categories.png)
 
-A player may choose a category even if their dice do not fulfill the requirements of that category and receive a score of zero. Once a player uses a category, they fill in the score box for that category and cannot use that category again in this game. However, if a player has already filled their Yahtzee box with a score of 50, if they later get another Yahtzee, then they get a Yahtzee bonus of 100 points, and then pick a separate category to fill in, as usual. If the upper section category for the Yahtzee roll has not been filled in, then that category must be chosen. 
+A player may choose a category even if their dice do not fulfill the requirements of that category and receive a score of zero. Once a player uses a category, they fill in the score box for that category and cannot use that category again in this game. However, if a player has already filled their Yahtzee box with a score of 50 and they later get **another** Yahtzee, they receive a Yahtzee bonus of 100 points, and then pick a separate category to fill in, as usual. If the upper section category for the Yahtzee roll has not been filled in, then that category must be chosen. 
 
-Additionally, a Yahtzee can be used as a *Joker* for the Full House, Large Straight, and Small Straight categories, if the Yahtzee box and the corresponding upper section box for the roll have already been filled in. For example, if a player rolls 5 threes, and they have already chosen the Yahtzee box earlier in the game, then they must choose the Threes category. If the Threes category has already been filled in, then they can choose any lower section category - they might choose, for example, the Large Straight category (using the Yahtzee roll as a Joker) and receive 40 points.
+Additionally, a Yahtzee can be used as a *Joker* for the Full House, Large Straight, and Small Straight categories, if the Yahtzee box and the corresponding upper section box for the roll have already been filled in. 
 
-If any of that was confusing, don't worry - I was halfway into coding this when I realized I had been implementing the Jokers incorrectly and had to backtrack. If you'd prefer a man patiently explain the rules over slo-mo shots of rolling dice, [this](https://www.youtube.com/watch?v=5Zzttnc4C8w) might be more to your taste.
+Here's an example. If a player rolls 5 threes, and they have already successfully chosen the Yahtzee box earlier in the game, then they **must** choose the Threes category. In this case, they will receive the 100 point Yahtzee bonus, plus the normal amount of points from the Threes category for their roll. If the Threes category has already been filled in, then they can choose any lower section category - they might choose, for example, the Large Straight category (using the Yahtzee roll as a Joker) and receive 40 points plus the 100 point Yahtzee bonus for 140 points.
+
+If any of that was confusing, don't worry - I was halfway into coding this when I realized I had been implementing the Jokers incorrectly and had to backtrack. If you'd prefer learning the rules via a man patiently explain the rules over slo-mo shots of rolling dice, [this](https://www.youtube.com/watch?v=5Zzttnc4C8w) might be more to your taste.
 
 ## Implementing Yahtzee In Python
 
@@ -45,9 +47,9 @@ A Yahtzee player can control just two aspects of the game: which dice to hold, a
 
 ### Strategy 1: Dumb Yahtzee
 
-First, we need a baseline. How might a beginner (or perhaps a young me with a still-developing pre-frontal cortex) play the game? We can observe that there are generally two **types** of scoring categories: straights, and X of a kind. Each type of category has a different tactic for holding dice - hold runs for straights, and repeated dice for X of a kind. Furthermore, we can observe that if we get a good initial roll for X of a Kind, it usually doesn't make sense to try to switch to straight, and vice versa. So given this, we should probably first check what type of roll we have, then choose our strategy from there. With this in mind, we can describe a simple algorithm for Dumb Yahtzee as follws:
+First, we need a baseline. How might a beginner (or perhaps a young Shaunish with a still-developing pre-frontal cortex) play the game? We can observe that there are generally two **types** of scoring categories: straights, and X of a kind. Each type of category has a different tactic for holding dice - hold runs (e.g. **[1 2 3 4 5]**) for straights, and repeated dice for X of a kind. Further, we can observe that if we get a good initial roll for X of a kind, it usually doesn't make sense to try to switch to a straight category, and vice versa. So given this, we should probably first check what type of roll we have, then choose our strategy from there. With this in mind, we can describe a simple algorithm for Dumb Yahtzee as follows:
 
-1. Initial roll.
+1. Roll the dice.
 
 2. If we haven’t played the Large Straight yet, check if we rolled a Large Straight. If we have, hold all dice.
 
@@ -68,17 +70,19 @@ those categories at random.
 
 ### Strategy 2: Smarter Yahtzee
 
-Dumb Yahtzee is okay. We could use it to get through any friendly game of Yahtzee and not get laughed out of the room. But there are a few obvious mistakes that this algorithm makes. Let's see if we can fix those errors. We can start with the basic algorithm above, and improve it to Smarter Yahtzee with two simple changes:
+Dumb Yahtzee is okay. We could use it to get through any friendly game of Yahtzee and not get laughed out of the room. But there are a few obvious mistakes that this algorithm makes - one in choosing which dice to hold, and one in choosing a category. Did you spot them? 
 
-1. If there are multiple options for the highest scoring category, we should always choose the most difficult or rarest category, to minimize the chance that we later have to take a zero for that category. For example, if we roll four of a kind, then the categories Four of a Kind, Three of a Kind, and Chance will all yield the same score. Strategy 1 will choose one of these three at random, but we should always choose Four of a Kind in this case.
+Let's see if we can fix those errors. We can start with the basic algorithm above, and improve it to Smarter Yahtzee with two simple changes:
 
-2. Always holding any dice that appear at least twice only makes sense if Full House is still an available category. Otherwise, even if multiple values of dice appear twice, we should only keep one value. Furthermore, since many of the categories are scored based on the value of the dice, we should keep the higher value dice. For example, if we initially roll **[5 5 4 4 2]**, and we have played the Full House category earlier in the game, then we should only keep **[5 5]** and re-roll the rest.
+1. Some categories are harder to get than others, and often we'll get to the end of the game without ever achieving them, which gives us a zero for that category. So if there are multiple options for the highest scoring category, we should always choose the most difficult or rarest category, to minimize the chance that we later have to take a zero for that category. For example, if we roll four of a kind, then the categories Four of a Kind, Three of a Kind, and Chance will all yield the same score. Dumb Yahtzee will choose one of these three at random, but we should always choose Four of a Kind in this case.
+
+2. Always holding any dice that appear at least twice only makes sense if Full House is still an available category. Otherwise, even if multiple values of dice appear twice, we should only keep one value. Further, since many of the categories are scored based on the value of the dice, we should keep the higher value dice. For example, if we initially roll **[5 5 4 4 2]**, and we have played the Full House category earlier in the game, then we should only keep **[5 5]** and re-roll the rest.
 
 ### Strategy 3: Smartest Yahtzee?
 
 Smarter Yahtzee is a clear and obvious improvement over Dumb Yahtzee. But can we make it better? The low-hanging fruit might be picked, but there still may be improvements to be made. Let's make just one small tweak to Smarter Yahtzee, and see if it improves our score.
 
-Recall that the player receives a bonus of 35 points if the upper section score is at least 63 at the end of the game. What if we attempt to increase the chance of receiving this bonus, even at the cost of lowering our score elsewhere? Let's automatically choose the upper section category for four of a kind rolls ([^1]) with sixes, fives, or fours, assuming that the upper section category has not yet been played. Before we run the simulation, it's unclear whether this is actually an improvement over Smarter Yahtzee. While this does increase the chance of an upper section bonus, it is easy to see that it will also lower the average score from the Four of a Kind category (which are now more likely to score with ones, twos, or threes, if at all). Let's see how it actually performs.
+Recall that the player receives a bonus of 35 points if the upper section score is at least 63 at the end of the game. What if we attempt to increase the chance of receiving this bonus, even at the risk of lowering our score elsewhere? Let's automatically choose the upper section category for four of a kind rolls ([^1]) with sixes, fives, or fours, assuming that the upper section category has not yet been played. Before we run the simulation, it's unclear whether this is actually an improvement over Smarter Yahtzee. While this does increase the chance of an upper section bonus, it is easy to see that it will also lower the average score from the Four of a Kind category (which is now more likely to score with ones, twos, or threes, if at all). Let's see how it actually performs.
 
 ## Running The Monte Carlo Simulation
 
