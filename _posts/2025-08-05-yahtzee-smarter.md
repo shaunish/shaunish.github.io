@@ -21,7 +21,7 @@ If a player achieves a score of at least 63 in the upper section, they receive a
 
 The lower section contains these categories:
 
-![Lower section categories in Yahtzee](https://github.com/shaunish/shaunish.github.io/blob/5b34bc06f5079d7283da4f45e418c4740eb20c6a/images/yahtzee/lower_categories.png)
+![Lower section categories in Yahtzee](/images/yahtzee/lower_categories.png)
 
 A player may choose a category even if their dice do not fulfill the requirements of that category and receive a score of zero. Once a player uses a category, they fill in the score box for that category and cannot use that category again in this game. However, if a player has already filled their Yahtzee box with a score of 50, if they later get another Yahtzee, then they get a Yahtzee bonus of 100 points, and then pick a separate category to fill in, as usual. If the upper section category for the Yahtzee roll has not been filled in, then that category must be chosen. 
 
@@ -84,15 +84,15 @@ Recall that the player receives a bonus of 35 points if the upper section score 
 
 The strategies outlined above are implemented as a Python script, which will automatically play the complete game and record the resulting score. Each strategy is run 100,000 times, and the mean and the variance of the scores of each strategy is captured. Let's see how they did. 
 
-![Table of Results](https://github.com/shaunish/shaunish.github.io/blob/5b34bc06f5079d7283da4f45e418c4740eb20c6a/images/yahtzee/results_table.png)
+![Table of Results](/images/yahtzee/results_table.png)
 
 It's clear, as predicted, that Strategy 2 and Strategy 3 are a large improvement over Strategy 1. The number of upper section bonuses is also included in the table, and it is evident that Strategy 3 does result in an increase in upper section bonuses. More concretely, Strategy 3 resulted in 6.374% of the runs scoring the additional bonus (which is lower than I expected - maybe there's a way to improve this even more?), compared to 2.765% in Strategy 2. We might think that the score for Strategy 3 should increase by an expected (35 points * (0.06374 - 0.02765)) = 1.26 points over Strategy 2; but this is really an upper bound for the increase in score, as optimizing for a higher score in the upper section should lower the score in lower section categories, as mentioned before. 
 
 In fact, we can see that Strategy 3 results in a mean score that is 0.81013 higher than Strategy 2! Since the true distribution of scores is unknown (we can observe from the histograms below that scores are non-normal; they have a long, heavy right-tail and a light left tail), we can use a non-parametric test to determine if this result is statistically significant. If we use the Mann-Whitney U test for independent samples to compare the scores from Strategy 2 and Strategy 3 with a standard alpha value of 0.05, Strategy 3 results in a higher score with a p-value of 0.036. Since this is below the chosen alpha value, we can conclude that Strategy 3 results in a small but statistically significant improvement in score. So yes, Strategy 3 turns out to be the smartest Yahtzee strategy.
 
-![Histograms for Strategies 1 and 2](https://github.com/shaunish/shaunish.github.io/blob/5b34bc06f5079d7283da4f45e418c4740eb20c6a/images/yahtzee/dumb_smarter_histogram.png)
+![Histograms for Strategies 1 and 2](/images/yahtzee/dumb_smarter_histogram.png)
 
-![Histogram for Strategy 3](https://github.com/shaunish/shaunish.github.io/blob/5b34bc06f5079d7283da4f45e418c4740eb20c6a/images/yahtzee/smartest_histogram.png)
+![Histogram for Strategy 3](/images/yahtzee/smartest_histogram.png)
 
 If you want to try this out for yourself, or have a deeper look, all of the code is available at my [github page](https://github.com/shaunish/yahtzee). And next family gathering, I'm going to suggest we play Yahtzee - and get my revenge.
 
