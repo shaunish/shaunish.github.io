@@ -68,6 +68,8 @@ those categories at random.
 
 9. Begin our next turn, returning to step 1 and repeating until every category has been chosen.
 
+Yay, we did it! We solved Yahtzee! Now we'll never lose again, right?
+
 ### Strategy 2: Smarter Yahtzee
 
 Dumb Yahtzee is okay. We could use it to get through any friendly game of Yahtzee and not get laughed out of the room. But there are a few obvious mistakes that this algorithm makes - one in choosing which dice to hold, and one in choosing a category. Did you spot them? 
@@ -76,7 +78,7 @@ Let's see if we can fix those errors. We can start with the basic algorithm abov
 
 1. Some categories are harder to get than others, and often we'll get to the end of the game without ever achieving them, which gives us a zero for that category. So if there are multiple options for the highest scoring category, we should always choose the most difficult or rarest category, to minimize the chance that we later have to take a zero for that category. For example, if we roll four of a kind, then the categories Four of a Kind, Three of a Kind, and Chance will all yield the same score. Dumb Yahtzee will choose one of these three at random, but we should always choose Four of a Kind in this case.
 
-2. Always holding any dice that appear at least twice only makes sense if Full House is still an available category. Otherwise, even if multiple values of dice appear twice, we should only keep one value. Further, since many of the categories are scored based on the value of the dice, we should keep the higher value dice. For example, if we initially roll **[5 5 4 4 2]**, and we have played the Full House category earlier in the game, then we should only keep **[5 5]** and re-roll the rest.
+2. Always holding any dice that appear at least twice only makes sense if Full House is still an available category. Otherwise, even if multiple values of dice appear twice, we should only keep one value. More specifically, when we have two values that appear twice in our roll, since many of the categories are scored based on the value of the dice, we should keep only the higher value dice. For example, if we initially roll **[5 5 4 4 2]**, and we have played the Full House category earlier in the game, then we should only keep **[5 5]** and re-roll the rest.
 
 ### Strategy 3: Smartest Yahtzee?
 
@@ -92,7 +94,7 @@ The strategies outlined above are implemented as a Python script, which will aut
 
 It's clear, as predicted, that Strategy 2 and Strategy 3 are a large improvement over Strategy 1. The number of upper section bonuses is also included in the table, and it is evident that Strategy 3 does result in an increase in upper section bonuses. More concretely, Strategy 3 resulted in 6.374% of the runs scoring the additional bonus (which is lower than I expected - maybe there's a way to improve this even more?), compared to 2.765% in Strategy 2. We might think that the score for Strategy 3 should increase by an expected (35 points * (0.06374 - 0.02765)) = 1.26 points over Strategy 2; but this is really an upper bound for the increase in score, as optimizing for a higher score in the upper section should lower the score in lower section categories, as mentioned before. 
 
-In fact, we can see that Strategy 3 results in a mean score that is 0.81013 higher than Strategy 2! Since the true distribution of scores is unknown (we can observe from the histograms below that scores are non-normal; they have a long, heavy right-tail and a light left tail), we can use a non-parametric test to determine if this result is statistically significant. If we use the Mann-Whitney U test for independent samples to compare the scores from Strategy 2 and Strategy 3 with a standard alpha value of 0.05, Strategy 3 results in a higher score with a p-value of 0.036. Since this is below the chosen alpha value, we can conclude that Strategy 3 results in a small but statistically significant improvement in score. So yes, Strategy 3 turns out to be the smartest Yahtzee strategy.
+In fact, we can see that Strategy 3 results in a mean score that is 0.81013 higher than Strategy 2! But is this just a fluke? Since the true distribution of scores is unknown (we can observe from the histograms below that scores are non-normal; they have a long, heavy right-tail and a light left tail), we can use a non-parametric test to determine if this result is statistically significant. If we use the Mann-Whitney U test for independent samples to compare the scores from Strategy 2 and Strategy 3 with a standard alpha value of 0.05, Strategy 3 results in a higher score with a p-value of 0.036. Since this is below the chosen alpha value, we can conclude that Strategy 3 results in a small but statistically significant improvement in score. So yes, Strategy 3 turns out to be the smartest Yahtzee strategy!
 
 ![Histograms for Strategies 1 and 2](/images/yahtzee/dumb_smarter_histogram.png)
 
