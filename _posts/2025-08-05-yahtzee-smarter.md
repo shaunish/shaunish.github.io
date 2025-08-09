@@ -15,7 +15,7 @@ The game consists of thirteen turns, and the objective is to achieve the highest
 
 The upper section contains these six categories:
 
-![Upper section categories in Yahtzee](https://github.com/shaunish/shaunish.github.io/blob/5b34bc06f5079d7283da4f45e418c4740eb20c6a/images/yahtzee/upper_categories.png)
+![Upper section categories in Yahtzee](/images/yahtzee/upper_categories.png)
  
 If a player achieves a score of at least 63 in the upper section, they receive an additional 35 point bonus.  
 
