@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Robotrader: Building a Neural Net To Trade Stocks
+title:  Robotrader\: Building a Neural Net To Trade Stocks
 categories: [Data Analytics,Python,Finance,Trading,Neural Net,pytorch]
 excerpt: Can A Neural Net Beat The Market?
 ---
