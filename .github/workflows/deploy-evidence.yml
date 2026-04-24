@@ -1,0 +1,33 @@
+name: Deploy Evidence Dashboard
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'olist_evidence/**'   # only runs when Evidence files change
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Evidence dependencies
+        run: npm install
+        working-directory: olist_evidence
+
+      - name: Build Evidence
+        run: npm run build
+        working-directory: olist_evidence
+
+      - name: Deploy to gh-pages subdirectory
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: olist_evidence/build
+          destination_dir: olist        # deploys to /olist/ subdirectory
+          keep_files: true              
