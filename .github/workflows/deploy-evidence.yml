@@ -2,7 +2,7 @@ name: Deploy Evidence Dashboard
 
 on:
   push:
-    branches: [main]
+    branches: [master]
     paths:
       - 'olist_evidence/**'   # only runs when Evidence files change
 
@@ -30,4 +30,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: olist_evidence/build
           destination_dir: olist        # deploys to /olist/ subdirectory
-          keep_files: true              
+          keep_files: true
+          publish_branch: master              
