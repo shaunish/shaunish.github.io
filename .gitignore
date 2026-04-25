@@ -5,9 +5,11 @@ _site
 .bundle
 .sass-cache
 Gemfile.lock
-node_modules
-package.json
+node_modules/
 *.gem
 *.gemspec
 .jekyll-cache
 vendor
+.evidence/
+build/
+.env

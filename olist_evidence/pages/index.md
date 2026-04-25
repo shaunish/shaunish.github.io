@@ -9,7 +9,7 @@ An analysis of customer purchasing patterns from the
 
 ## Customer Segments
 
-```sql customer_segments
+```sql ltv_by_segment
 select * from olist.ltv_by_segment
 ```
 
