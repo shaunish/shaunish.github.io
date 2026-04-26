@@ -3,7 +3,7 @@ appearance:
   switcher: true
 
 deployment:
-  base: /olist/
+  basePath: /olist
 
 theme:
   colorPalettes:
