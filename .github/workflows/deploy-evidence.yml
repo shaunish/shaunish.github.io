@@ -31,4 +31,4 @@ jobs:
           publish_dir: olist_evidence/build
           destination_dir: olist        # deploys to /olist/ subdirectory
           keep_files: true
-          publish_branch: master              
+                        

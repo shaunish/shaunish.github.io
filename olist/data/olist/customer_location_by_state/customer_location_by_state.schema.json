@@ -1,0 +1,1 @@
+[{"name":"state","evidenceType":"string","typeFidelity":"precise"},{"name":"unique_customers","evidenceType":"number","typeFidelity":"precise"},{"name":"avg_ltv","evidenceType":"number","typeFidelity":"precise"}]

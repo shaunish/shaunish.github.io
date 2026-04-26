@@ -1,0 +1,1 @@
+[{"name":"customer_segment","evidenceType":"string","typeFidelity":"precise"},{"name":"customer_count","evidenceType":"number","typeFidelity":"precise"},{"name":"pct_of_customers","evidenceType":"number","typeFidelity":"precise"}]

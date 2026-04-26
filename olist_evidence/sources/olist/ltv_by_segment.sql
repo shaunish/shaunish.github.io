@@ -1,4 +1,4 @@
--- SQL query for retrieving average lifetime value, average order value, and average number of orders by segment
+
 select
     customer_segment,
     round(avg(lifetime_value), 2)   as avg_ltv,

@@ -1,0 +1,1 @@
+{"queries":[{"id":"ltv_by_segment","compiledQueryString":"select * from olist.ltv_by_segment","inputQueryString":"select * from olist.ltv_by_segment","compiled":false,"inline":true}]}

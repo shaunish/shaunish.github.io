@@ -99,4 +99,6 @@ exclude:
   - LICENSE
   - README.md
   - CNAME
+  - olist_evidence/
+  - node_modules/
 

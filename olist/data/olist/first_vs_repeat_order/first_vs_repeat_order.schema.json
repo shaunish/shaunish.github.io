@@ -1,0 +1,1 @@
+[{"name":"is_repeat_purchase","evidenceType":"boolean","typeFidelity":"precise"},{"name":"avg_order_value","evidenceType":"number","typeFidelity":"precise"},{"name":"avg_items_per_order","evidenceType":"number","typeFidelity":"precise"},{"name":"order_count","evidenceType":"number","typeFidelity":"precise"}]
