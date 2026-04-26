@@ -102,3 +102,6 @@ exclude:
   - olist_evidence/
   - node_modules/
 
+keep_files:
+  - olist
+

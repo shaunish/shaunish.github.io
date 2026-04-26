@@ -15,21 +15,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Add .nojekyll to olist folder
+        run: touch olist/.nojekyll
+
       - name: Build Jekyll site
         uses: actions/jekyll-build-pages@v1
         with:
           source: ./
           destination: ./_site
 
-      - name: Copy Evidence build into Jekyll output
-        run: |
-          mkdir -p _site/olist
-          cp -r olist/. _site/olist/
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: _site/
+          path: ./_site/
 
   deploy-pages:
     needs: deploy
