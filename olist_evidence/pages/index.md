@@ -7,17 +7,18 @@ title: Olist Customer Analytics
 An analysis of customer purchasing patterns from the 
 [Olist Brazilian E-Commerce dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).
 
-## Customer Segments
+## Revenue Over Time
 
-```sql ltv_by_segment
-select * from olist.ltv_by_segment
+Is Olist growing? Monthly revenue from delivered orders.
+
+```sql revenue_by_month
+select * from olist.revenue_by_month
 ```
 
-<BarChart 
-    data={ltv_by_segment}
-    x=customer_segment
-    y=avg_ltv
-    title="Customer Lifetime Value by Segment"
+<LineChart
+    data={revenue_by_month}
+    x=month
+    y=total_revenue
+    title="Monthly Revenue"
+    yAxisTitle="Revenue in BRL"
 />
-
-<DataTable data={ltv_by_segment}/>
