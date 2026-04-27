@@ -15,6 +15,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Rename _app to avoid Jekyll processing
+        run: |
+          mv olist/_app olist/app
+          find olist/ -name "*.html" -exec sed -i 's|/_app/|/app/|g' {} +
+          find olist/ -name "*.js" -exec sed -i 's|/_app/|/app/|g' {} +
+
       - name: Add .nojekyll to olist folder
         run: touch olist/.nojekyll
 
