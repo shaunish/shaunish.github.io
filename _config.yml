@@ -79,6 +79,7 @@ kramdown:
 # Set the Sass partials directory, as we're using @imports
 sass:
   style: :expanded # You might prefer to minify using :compressed
+  sourcemap: never
 
 # Use the following plug-ins
 plugins:
@@ -87,7 +88,10 @@ plugins:
   - jekyll-seo-tag
   - jekyll-paginate
 
-include: ['_pages']
+include:
+  - _pages
+  - olist/_app
+  - olist/api
 
 paginate: 6
 paginate_path: /page:num/
