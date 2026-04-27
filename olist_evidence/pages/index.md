@@ -1,15 +1,17 @@
 ---
-title: Olist Customer Analytics
+title: Understanding E-Commerce through Olist
 ---
 
-# Olist Customer Behavior Analysis
+# Overview
 
-An analysis of customer purchasing patterns from the 
-[Olist Brazilian E-Commerce dataset](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce).
+Olist is a large online marketplace in Brazil. They allow merchants to list products on their platform, and fulfill orders through Olist's delivery network. In other words, it's Brazil's version of Amazon (the company, not the rainforest). Olist is a relatively young company; it was founded in 2015 and is still a private company, although they've garnered hundreds of millions in startup funding from Softbank, Redpoint, and other prominent venture capital firms. 
 
-## Revenue Over Time
+A few years ago, Olist released [anonymized transaction data](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) from their first two years in business. Let's take a look at it, and see what we can learn about e-commerce in Brazil.
 
-Is Olist growing? Monthly revenue from delivered orders.
+
+## GMV Growth and Seasonality
+
+The first thing we want to understand is: how is Olist doing as a business? Are they growing over time? Let's look at total GMV by month over these two years:
 
 ```sql revenue_by_month
 select * from olist.revenue_by_month
@@ -19,6 +21,22 @@ select * from olist.revenue_by_month
     data={revenue_by_month}
     x=month
     y=total_revenue
-    title="Monthly Revenue"
-    yAxisTitle="Revenue in BRL"
+    title="Monthly GMV"
+    yAxisTitle="GMV in BRL"
+/>
+
+They certainly are growing! After a somewhat sputtering start at the end of 2016, Olist shows strong growth in 2017, going from close to zero to over R$1.15 million BRL (around $230,000 USD at today's exchange rate) in their strongest month in November. Notice that this chart shows GMV, not revenue - as a marketplace, Olist will get a portion of sales as their revenue, and the rest will pass through to the merchant.
+
+Two more related observations about this graph - first, there's a spike in sales in November 2017, followed by a plateau and slight decline into summer of 2018. This isn't surprising in e-commerce, where the Q4 holiday season is almost always the busiest season, while summers tend to be quieter. Consumers make a lot of purchases around the holiday season, due to gifts, holdiay bonuses, and aggressive retail promotions. This effect pulls future demand forward, resulting in spikes in Q4 just as we see here. In fact, it's not uncommon for a retailer to make 40% of its annual revenue in just the last quarter.
+
+Retailers like Olist know that seasonality is a large part of the business model, but it makes executing during the holidays critical to survival. Since there's sparse data in 2016 and the data ends before the 2018 holiday season, we won't get to see this seasonality repeat in the data. But we can infer that this decline in sales was indeed temporary, since Softbank and their ilk wouldn't have touched this company otherwise!
+
+Let's dig into average order count by month and average order value by month and see what we can find:
+
+<LineChart
+    data={revenue_by_month}
+    x=month
+    y=order_count
+    y2=avg_order_value
+    title="Monthly Order Value and Order Count"
 />
