@@ -7,7 +7,7 @@ select
         where customer_order_sequence = 1
     ) / count(distinct order_id), 1)        as first_order_pct,
 
-round(100.0 * count(distinct order_id) filter (
+    round(100.0 * count(distinct order_id) filter (
         where customer_order_sequence > 1
     ) / count(distinct order_id), 1)        as repeat_order_pct
 from main.fct_customer_orders
