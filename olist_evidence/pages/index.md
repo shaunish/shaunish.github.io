@@ -43,12 +43,13 @@ So what's driving the growth we see over 2017? Hypothesis: maybe order value is 
 
 Nope! Order value stays pretty much flat throughout this data. Meanwhile, the order count line mirrors the GMV line above. In other words, all growth is driven by increase in order count, not order value. More orders = more revenue, and fewer orders = less revenue. That's interesting! Usually, as a business matures, trust in the platform grows, and people shift more of their spending there over time. You might test out a brand-new platform with a single small purchase, then maybe try a couple more if the experience was good, and then suddenly you're buying all of your groceries online instead of walking one block to the store (yes, I spend way too much on Amazon. Why do you ask?).
 
-But that's not what's happening here at all. Hmm - let's take a closer look into repeat customers. We'll look at order count again, but this time broken up into new customers and repeat customers.
+But that's not what's happening here at all. Hmm - let's take a closer look into repeat customers. We'll look at orders again, but this time broken up as a percentage into new customers and repeat customers.
 
 <LineChart
     data={revenue_by_month}
     x=month
-    y=first_orders
-    y2=repeat_orders
+    y=first_order_pct
+    y2=repeat_order_pct
     title="Monthly New Vs. Repeat Orders"
 />
+
