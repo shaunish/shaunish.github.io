@@ -36,14 +36,14 @@ So what's driving the growth we see over 2017? Hypothesis: maybe order value is 
 <LineChart
     data={revenue_by_month}
     x=month
-    y=order_count
+    y=total_orders
     y2=avg_order_value
     title="Monthly Order Value and Order Count"
 />
 
 Nope! Order value stays pretty much flat throughout this data. Meanwhile, the order count line mirrors the GMV line above. In other words, all growth is driven by increase in order count, not order value. More orders = more revenue, and fewer orders = less revenue. That's interesting! Usually, as a business matures, trust in the platform grows, and people shift more of their spending there over time. You might test out a brand-new platform with a single small purchase, then maybe try a couple more if the experience was good, and then suddenly you're buying all of your groceries online instead of walking one block to the store (yes, I spend way too much on Amazon. Why do you ask?).
 
-But that's not what's happening here at all. Hmm - let's take a closer look into repeat customers. We'll look at orders again, but this time broken up as a percentage into new customers and repeat customers.
+But that's not what's happening here at all. Hmm - let's take a closer look into repeat customers. Are they growing over time? We'll look at orders again, but this time broken up as a percentage into new customers and repeat customers.
 
 <LineChart
     data={revenue_by_month}
@@ -53,3 +53,4 @@ But that's not what's happening here at all. Hmm - let's take a closer look into
     title="Monthly New Vs. Repeat Orders"
 />
 
+For a brand new business, especially a fast-growing one, it makes sense that almost all customers will be first-time users. As the business matures, revenue should shift more and more towards repeat customers - the exact mix will depend on industry, strategy, and company size. Amazon is a great comparison to Olist, but they don't release their revenue breakdown by first-time and repeat customers. However, I discovered that on their [form 10-K released in 1997](https://s2.q4cdn.com/299287126/files/doc_financials/annual/123197_10k.pdf), they mention that repeat customers made up 58% of their revenue. This is a really interesting comparison - Amazon was launched in 1995, and so their 1997 numbers 
