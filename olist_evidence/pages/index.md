@@ -61,4 +61,18 @@ Here we can see that the proportion of revenue attributable to repeat purchases 
 
 Where should that mix be for Olist? It's instructive here to look at Olist's big American brother: Amazon. As another e-commerce marketplace, Amazon is a great comparison, but unfortunately they don't release their revenue breakdown by first-time and repeat customers. However, I discovered that on their [form 10-K released in 1997](https://s2.q4cdn.com/299287126/files/doc_financials/annual/123197_10k.pdf), they mention that repeat customers made up 58%(!) of their revenue. This is a really interesting comparison - Amazon was launched in July 1995, and so their 1997 numbers represent about two years of data, just as we have with Olist. 
 
-What do we make of the fact that at the same point in the history of Amazon and Olist, Amazon attributes more than half of its revenue to repeat customers, while repeat customers are a rounding error for Olist? Well, in 1997 Amazon reported a whopping $147M in revenue, with 1.5 million customers domestically and internationally, compared to Olist's run rate of less than $2.5M USD by the end of our data. So even though the companies are about the same age, 1997 Amazon may still be more mature than 2018 Olist. But it's an interesting data point - and for Olist management in 2018, this should have been a blinking "Danger!" sign. You just can't build a sustainable business without repeat customers. 
+What do we make of the fact that at the same point in the history of Amazon and Olist, Amazon attributes more than half of its revenue to repeat customers, while repeat customers are a rounding error for Olist? Well, in 1997 Amazon reported a whopping $147M in revenue, with 1.5 million customers domestically and internationally, compared to Olist's run rate of less than $2.5M USD by the end of our data. So even though the companies are about the same age, 1997 Amazon may still be more mature than 2018 Olist. But it's an interesting data point - and for Olist management in 2018, this should have been a blinking "Danger!" sign. You just can't build a sustainable business without repeat customers.
+
+# Wait! Come Back!
+
+```sql review_terms
+select * from olist.review_terms
+```
+
+<BarChart
+    data={review_terms}
+    x=term
+    y=tfidf_score
+    title="Top Terms in 1-Star Reviews"
+    swapXY=true
+/>

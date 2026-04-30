@@ -1,0 +1,1 @@
+[{"name":"term","evidenceType":"string","typeFidelity":"precise"},{"name":"tfidf_score","evidenceType":"number","typeFidelity":"precise"},{"name":"frequency","evidenceType":"number","typeFidelity":"precise"},{"name":"rank","evidenceType":"number","typeFidelity":"precise"}]
