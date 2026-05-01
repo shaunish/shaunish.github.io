@@ -27,7 +27,7 @@ They certainly are growing! After a sputtering launch at the end of 2016, Olist 
 
 Two more related observations about this graph - first, there's a spike in sales in November 2017, followed by a plateau and slight decline into summer of 2018. While this chart might give those used to SaaS businesses palpitations, this isn't surprising in e-commerce and retail, where the Q4 holiday season is almost always the busiest period, while summers tend to be quieter. Consumers like to make a lot of purchases around the holiday season, due to gifts, holiday bonuses, and aggressive retail promotions. At the same time, summers are when people spend on travel, restaurants, and experiences, not consumer goods. These effects pull demand towards the holidays, resulting in spikes in Q4 just as we see here. In fact, it's not uncommon for a retailer to make 40% of its annual revenue in just the last quarter of the year.
 
-Retailers like Olist know that seasonality is an unavaoidable feature of the industry, but it makes executing during the holidays critical to survival. Since there's sparse data in 2016 and the data ends before the 2018 holiday season, we won't get to see this seasonality repeat in the data. But our second observation is not about what we see on this chart, but what we can infer: that this decline in sales was indeed temporary. Softbank wouldn't have touched this company otherwise!
+Retailers like Olist know that seasonality is an unavaoidable feature of the industry, but it makes executing during the holidays critical to survival. Since there's sparse data in 2016 and the data ends before the 2018 holiday season, we won't get to see this seasonality repeat in the data. But our second observation is not about what we see on this chart, but what we can infer: that this decline in sales was indeed temporary, or that there was a business model pivot. Softbank wouldn't have touched this company otherwise!
 
 # Growing, Growing, Gone?
 
@@ -64,6 +64,19 @@ Where should that mix be for Olist? It's instructive here to look at Olist's big
 What do we make of the fact that at the same point in the history of Amazon and Olist, Amazon attributes more than half of its revenue to repeat customers, while repeat customers are a rounding error for Olist? Well, in 1997 Amazon reported a whopping $147M in revenue, with 1.5 million customers domestically and internationally, compared to Olist's run rate of less than $2.5M USD by the end of our data. So even though the companies are about the same age, 1997 Amazon may still be more mature than 2018 Olist. But it's an interesting data point - and for Olist management in 2018, this should have been a blinking "Danger!" sign. You just can't build a sustainable business without repeat customers.
 
 # Wait! Come Back!
+
+Okay, so customers are trying the product once and not returning. Why? Two broad possibilities - either they will return but they haven't yet, or they had a bad experience and won't. Luckily for us, after customers buy a product, Olist asks them to rate their experience and leave a review. So let's see how people felt about their experience:
+
+```sql reviews_by_score
+select * from olist.reviews_by_score
+```
+
+<BarChart
+    data={reviews_by_score}
+    x=review_score
+    y=review_count
+    title="Number of orders by review score"
+/>
 
 ```sql review_terms
 select * from olist.review_terms
