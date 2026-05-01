@@ -1,1 +1,1 @@
-[{"name":"review_score","evidenceType":"number","typeFidelity":"precise"},{"name":"review_count","evidenceType":"number","typeFidelity":"precise"}]
+[{"name":"review_score","evidenceType":"string","typeFidelity":"precise"},{"name":"review_count","evidenceType":"number","typeFidelity":"precise"}]

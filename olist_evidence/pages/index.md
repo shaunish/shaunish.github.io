@@ -65,18 +65,23 @@ What do we make of the fact that at the same point in the history of Amazon and 
 
 # Wait! Come Back!
 
-Okay, so customers are trying the product once and not returning. Why? Two broad possibilities - either they will return but they haven't yet, or they had a bad experience and won't. Luckily for us, after customers buy a product, Olist asks them to rate their experience and leave a review. So let's see how people felt about their experience:
+Okay, so customers are trying the product once and not returning. Why? Two broad possibilities - either they will return but they haven't yet, or they had a bad experience and won't. Luckily for us, after customers buy a product, Olist asks them to rate their experience from 1 to 5 and leave a review. So let's see how people felt about their experience:
 
 ```sql reviews_by_score
 select * from olist.reviews_by_score
 ```
-
-<BarChart
-    data={reviews_by_score}
-    x=review_score
-    y=review_count
-    title="Number of orders by review score"
-/>
+<ECharts config= {
+    {
+        tooltip: { trigger: 'item', formatter: '{b}: {d}%' },
+        series: [{
+            type: 'pie',
+            data: reviews_by_score.map(d => ({
+                name: d.review_score + ' star',
+                value: d.review_count
+            }))
+        }]
+    }
+}/>
 
 ```sql review_terms
 select * from olist.review_terms
