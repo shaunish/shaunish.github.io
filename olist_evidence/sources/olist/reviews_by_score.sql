@@ -1,5 +1,5 @@
 select 
-    review_score::varchar as review_score,
+    review_score,
     count(*)        as review_count,
     sum(case when delivered_on_time = true then 1 else 0 end) as on_time_orders,
     sum(case when (delivered_on_time = false or delivered_on_time is null) then 1 else 0 end)  as late_orders

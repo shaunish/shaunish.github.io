@@ -76,7 +76,7 @@ select * from olist.reviews_by_score
         series: [{
             type: 'pie',
             data: reviews_by_score.map(d => ({
-                name: d.review_score + ' star',
+                name: String(d.review_score) + ' star',
                 value: d.review_count
             }))
         }]
@@ -107,6 +107,10 @@ select * from olist.review_terms
 />
 
 Much of what we see are generic terms like 'produto' (product) and 'comprei' (I bought). But there is a theme that surfaces. We see 'entregar' and 'entrega' (delivery) near the top, 'chegar' (to arrive), 'vir' (to come), 'esperar' and 'aguardar' (to wait), 'correio' (mail), 'enviar' (to send) - references to the delivery of the product. These seem to be more common than complaints about, say, the 'qualidade' (quality) of the product. This isn't definitive proof of anything, but it does suggest an avenue of exploration: are unhappy customers receiving their orders late? Let's take a look!
+
+```sql reviews_by_score
+select * from olist.reviews_by_score
+```
 
 <BarChart
     data={reviews_by_score}
