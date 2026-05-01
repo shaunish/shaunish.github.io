@@ -7,7 +7,7 @@ Olist is a large online marketplace based in Brazil. They allow merchants to lis
 A few years ago, Olist released [anonymized transaction data](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) from their first two years in business. This is cool! It's rare to get such granular transaction-level data in the e-commerce space, especially from a startup. Let's take a look at it, and see what we can learn.
 
 
-# GMV Growth and Seasonality
+# 'Tis the Season
 
 The first thing we want to understand is: how is Olist doing as a business? Are they growing over time? Let's look at total GMV by month over these two years:
 
@@ -27,7 +27,7 @@ They certainly are growing! After a sputtering launch at the end of 2016, Olist 
 
 Two more related observations about this graph - first, there's a spike in sales in November 2017, followed by a plateau and slight decline into summer of 2018. While this chart might give those used to SaaS businesses palpitations, this isn't surprising in e-commerce and retail, where the Q4 holiday season is almost always the busiest period, while summers tend to be quieter. Consumers like to make a lot of purchases around the holiday season, due to gifts, holiday bonuses, and aggressive retail promotions. At the same time, summers are when people spend on travel, restaurants, and experiences, not consumer goods. These effects pull demand towards the holidays, resulting in spikes in Q4 just as we see here. In fact, it's not uncommon for a retailer to make 40% of its annual revenue in just the last quarter of the year.
 
-Retailers like Olist know that seasonality is an unavaoidable feature of the industry, but it makes executing during the holidays critical to survival. Since there's sparse data in 2016 and the data ends before the 2018 holiday season, we won't get to see this seasonality repeat in the data. But our second observation is not about what we see on this chart, but what we can infer: that this decline in sales was indeed temporary, or that there was a business model pivot. Softbank wouldn't have touched this company otherwise!
+Retailers like Olist know that seasonality is an unavaoidable feature of the industry, but it makes executing during the holidays critical to survival. Since there's sparse data in 2016 and the data ends before the 2018 holiday season, we won't get to see this seasonality repeat in the data. But our second observation is not about what we see on this chart, but what we can infer: that this decline in sales was indeed temporary - or that there was a business model pivot. Softbank wouldn't have touched this company otherwise!
 
 # Growing, Growing, Gone?
 
@@ -83,6 +83,10 @@ select * from olist.reviews_by_score
     }
 }/>
 
+Not too bad! More than 75% of customers left either a 4 star or 5 star review. So we can assume that these happy reviewers might return in the future, even if they haven't yet. In this case, it's possible that Olist should focus on expanding its product offerings or minimizing out-of-stocks. Why? Because if a customer can't find the product they're looking for in the first place, they'll never place an order - and won't leave a bad review.
+
+But we do have around 11% of people that were unhappy with their experience and left a one-star review. Can we figure out what they didn't like, maybe using NLP and a little elbow grease? To investigate, I calculated the [TD-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) for each word and 2-word phrase in every one-star review. Here are the top 20 most frequent terms that show up (remember, these are in Portuguese):
+
 ```sql review_terms
 select * from olist.review_terms
 ```
@@ -94,3 +98,4 @@ select * from olist.review_terms
     title="Top Terms in 1-Star Reviews"
     swapXY=true
 />
+
