@@ -4,5 +4,5 @@ select
     frequency,
     rank
 from main.review_term_frequencies
-where rank <= 20
+where rank <= 30
 order by rank

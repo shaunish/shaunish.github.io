@@ -83,16 +83,9 @@ select * from olist.reviews_by_score
     }
 }/>
 
-<BarChart
-    data={reviews_by_score}
-    x=review_score
-    y=review_count
-    title="reviews"
-/>
+Not too bad! More than 75% of customers left either a 4 star or 5 star review, and the average rating comes out to 4.08 stars out of 5. So we can assume that these happy reviewers might return in the future, even if they haven't yet. In this case, it's possible that Olist should focus on expanding its product offerings or minimizing out-of-stocks. Why? Because if a customer can't find the product they're looking for in the first place, they'll never place an order - and won't leave a bad review. These lost sales are invisible to us, although they might be detectable in increased website traffic and searches that never result in a sale.
 
-Not too bad! More than 75% of customers left either a 4 star or 5 star review. So we can assume that these happy reviewers might return in the future, even if they haven't yet. In this case, it's possible that Olist should focus on expanding its product offerings or minimizing out-of-stocks. Why? Because if a customer can't find the product they're looking for in the first place, they'll never place an order - and won't leave a bad review. These lost sales are invisible to us, although they might be detectable in increased website traffic and searches that never result in a sale.
-
-We don't have the Olist website data to confirm this. But we do have around 11% of people that were very unhappy with their experience and left a one-star review. Can we figure out what they didn't like, maybe using NLP and a little elbow grease? To investigate, let's calculate the [TD-IDF score](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) for each word and 2-word phrase in every one-star review. Scikit-learn has a great td-idf library, and we can use the open-source [spaCy](https://spacy.io/) NLP library to clean up the data before we analyze it. The results are below: the top thirty most frequent terms that show up in one-star reviews (remember, Olist customers speak Portuguese).
+We don't have the Olist website data to confirm this. But we do have 11.51% of people that were very unhappy with their experience and left a one-star review. Can we figure out what they didn't like, maybe using NLP and a little elbow grease? To investigate, let's calculate the [TD-IDF score](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) for each word and 2-word phrase in every one-star review. Scikit-learn has a great td-idf library, and we can use the open-source [spaCy](https://spacy.io/) NLP library to clean up the data before we analyze it. The results are below: the top thirty most frequent terms that show up in one-star reviews (remember, Olist customers speak Portuguese).
 
 ```sql review_terms
 select * from olist.review_terms
@@ -106,7 +99,7 @@ select * from olist.review_terms
     swapXY=true
 />
 
-Much of what we see are generic terms like 'produto' (product) and 'comprei' (I bought). But there is a theme that surfaces. We see 'entregar' and 'entrega' (delivery) near the top, 'chegar' (to arrive), 'vir' (to come), 'esperar' and 'aguardar' (to wait), 'correio' (mail), 'enviar' (to send) - references to the delivery of the product. These seem to be more common than complaints about, say, the 'qualidade' (quality) of the product. This isn't definitive proof of anything, but it does suggest an avenue of exploration: are unhappy customers receiving their orders late? Let's take a look!
+Much of what we see are generic terms like 'produto' (product) and 'comprei' (I bought). But there is a theme that surfaces. We see 'entregar' and 'entrega' (delivery) near the top, 'chegar' (to arrive), 'vir' (to come), 'esperar' and 'aguardar' (to wait), 'correio' (mail), 'enviar' (to send) - references to the delivery of the product. These seem to be more common than complaints about, say, the 'qualidade' (quality) of the product. This isn't definitive proof of anything, but it does [waggle its eyebrows suggestively](https://xkcd.com/552/): are unhappy customers receiving their orders late? Let's take a look!
 
 ```sql reviews_by_score
 select * from olist.reviews_by_score
@@ -115,7 +108,7 @@ select * from olist.reviews_by_score
 <BarChart
     data={reviews_by_score}
     x=review_score
-    y={["on_time_orders", "late_orders"]}
+    y={["on_time_orders", "late_orders", "not_delivered"]}
     type=stacked
-    title="On Time vs Late Deliveries by Review Score"
+    title="Delivery status by Review Score"
 />
