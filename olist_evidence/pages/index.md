@@ -57,7 +57,7 @@ select * from olist.monthly_new_vs_returning
     title="First vs Repeat Orders by Month"
 />
 
-Here we can see that the proportion of revenue attributable to repeat purchases is small, less than 5%, and it stays that way until the end of the data. For a brand new business, especially a fast-growing one, it makes sense that almost all customers will be first-time users. As the business matures, revenue should shift more and more towards repeat customers - the exact mix will depend on industry, strategy, and company size.
+Here we can see that the proportion of revenue attributable to repeat purchases barely visible, and although it grows slightly over time, it never reaches even 5% of purchases. For a brand new business, especially a fast-growing one, it makes sense that almost all customers will be first-time users. As the business matures, revenue should shift more and more towards repeat customers - the exact mix will depend on industry, strategy, and company size.
 
 Where should that mix be for Olist? It's instructive here to look at Olist's big American brother: Amazon. As another e-commerce marketplace, Amazon is a great comparison, but unfortunately they don't release their revenue breakdown by first-time and repeat customers. However, I discovered that on their [form 10-K released in 1997](https://s2.q4cdn.com/299287126/files/doc_financials/annual/123197_10k.pdf), they mention that repeat customers made up 58%(!) of their revenue. This is a really interesting comparison - Amazon was launched in July 1995, and so their 1997 numbers represent about two years of data, just as we have with Olist. 
 
@@ -65,7 +65,7 @@ What do we make of the fact that at the same point in the history of Amazon and 
 
 # Wait! Come Back!
 
-Okay, so customers are trying the product once and not returning. Why? Two broad possibilities - either they will return but they haven't yet, or they had a bad experience and won't. Luckily for us, after customers buy a product, Olist asks them to rate their experience from 1 to 5 and leave a review. So let's see how people felt about their experience:
+Okay, so customers are trying the product once and not returning. Why? Two broad possibilities - either they will return but they haven't yet, or they had a bad experience and won't. Luckily for us, we can see which category Olist customers fall into, because whenever customers buy a product, Olist asks them to rate their experience from 1 to 5 and leave a review. So let's see how people felt about their experience:
 
 ```sql reviews_by_score
 select * from olist.reviews_by_score
@@ -83,9 +83,16 @@ select * from olist.reviews_by_score
     }
 }/>
 
-Not too bad! More than 75% of customers left either a 4 star or 5 star review. So we can assume that these happy reviewers might return in the future, even if they haven't yet. In this case, it's possible that Olist should focus on expanding its product offerings or minimizing out-of-stocks. Why? Because if a customer can't find the product they're looking for in the first place, they'll never place an order - and won't leave a bad review.
+<BarChart
+    data={reviews_by_score}
+    x=review_score
+    y=review_count
+    title="reviews"
+/>
 
-But we do have around 11% of people that were unhappy with their experience and left a one-star review. Can we figure out what they didn't like, maybe using NLP and a little elbow grease? To investigate, I calculated the [TD-IDF](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) for each word and 2-word phrase in every one-star review. Here are the top 20 most frequent terms that show up (remember, these are in Portuguese):
+Not too bad! More than 75% of customers left either a 4 star or 5 star review. So we can assume that these happy reviewers might return in the future, even if they haven't yet. In this case, it's possible that Olist should focus on expanding its product offerings or minimizing out-of-stocks. Why? Because if a customer can't find the product they're looking for in the first place, they'll never place an order - and won't leave a bad review. These lost sales are invisible to us, although they might be detectable in increased website traffic and searches that never result in a sale.
+
+We don't have the Olist website data to confirm this. But we do have around 11% of people that were very unhappy with their experience and left a one-star review. Can we figure out what they didn't like, maybe using NLP and a little elbow grease? To investigate, let's calculate the [TD-IDF score](https://en.wikipedia.org/wiki/Tf%E2%80%93idf) for each word and 2-word phrase in every one-star review. Scikit-learn has a great td-idf library, and we can use the open-source [spaCy](https://spacy.io/) NLP library to clean up the data before we analyze it. The results are below: the top thirty most frequent terms that show up in one-star reviews (remember, Olist customers speak Portuguese).
 
 ```sql review_terms
 select * from olist.review_terms
@@ -95,7 +102,16 @@ select * from olist.review_terms
     data={review_terms}
     x=term
     y=tfidf_score
-    title="Top Terms in 1-Star Reviews"
+    title="Top Thirty Terms in 1-Star Reviews"
     swapXY=true
 />
 
+Much of what we see are generic terms like 'produto' (product) and 'comprei' (I bought). But there is a theme that surfaces. We see 'entregar' and 'entrega' (delivery) near the top, 'chegar' (to arrive), 'vir' (to come), 'esperar' and 'aguardar' (to wait), 'correio' (mail), 'enviar' (to send) - references to the delivery of the product. These seem to be more common than complaints about, say, the 'qualidade' (quality) of the product. This isn't definitive proof of anything, but it does suggest an avenue of exploration: are unhappy customers receiving their orders late? Let's take a look!
+
+<BarChart
+    data={reviews_by_score}
+    x=review_score
+    y={["on_time_orders", "late_orders"]}
+    type=stacked
+    title="On Time vs Late Deliveries by Review Score"
+/>

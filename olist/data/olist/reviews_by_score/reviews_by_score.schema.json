@@ -1,1 +1,1 @@
-[{"name":"review_score","evidenceType":"string","typeFidelity":"precise"},{"name":"review_count","evidenceType":"number","typeFidelity":"precise"}]
+[{"name":"review_score","evidenceType":"string","typeFidelity":"precise"},{"name":"review_count","evidenceType":"number","typeFidelity":"precise"},{"name":"on_time_orders","evidenceType":"number","typeFidelity":"precise"},{"name":"late_orders","evidenceType":"number","typeFidelity":"precise"}]
