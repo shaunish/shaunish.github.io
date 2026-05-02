@@ -6,6 +6,8 @@ title: "Olist: An E-Commerce Marketplace Case Study"
 
 A few years ago, Olist released <a href="https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce" target="_blank" style="color: blue;">anonymized transaction data</a> from their first two years in business. This is cool! It's rare to get such granular transaction-level data in the e-commerce space, especially from a startup. Let's take a look at it and see what we can learn.
 
+(I organized all the data used in this project using the dbt platform and DuckDB - you can check it out <a href="https://github.com/shaunish/olist_dbt" target="_blank" style="color: blue;">here</a>. All the charts were made using <a href="https://evidence.dev" target="_blank" style="color: blue;">Evidence.dev</a>. If you want to check out the source code, it's available at my Github <a href="https://github.com/shaunish/shaunish.github.io/tree/master/olist" target="_blank" style="color: blue;">here</a>.)
+
 
 # 'Tis the Season
 
@@ -27,7 +29,7 @@ They certainly are growing! After a sputtering launch at the end of 2016, Olist 
 
 Two more related observations about this graph. First, there's a spike in sales in November 2017, followed by a plateau and slight decline into the middle of 2018. While this chart might give those used to SaaS businesses palpitations, this isn't surprising in e-commerce and retail, where the Q4 holiday season is almost always the busiest period, while summers tend to be quieter. Consumers like to make a lot of purchases around the holiday season, due to gifts, holiday bonuses, and aggressive retail promotions. These effects pull demand towards the holidays, resulting in spikes in Q4 just as we see here. In fact, it's not uncommon for a retailer to make 40% of its annual revenue in just the last quarter of the year.
 
-Retailers like Olist know that seasonality is an unavaoidable feature of the industry, but it makes executing during the holidays critical to survival. Since there's sparse data in 2016 and the data ends before the 2018 holiday season, we won't get to see this seasonality repeat in the data. But our second observation is not about what we see on this chart, but what we can infer: that this decline in sales was indeed temporary - or that there was a business model pivot. Softbank wouldn't have touched this company otherwise!
+Retailers like Olist know that seasonality is an unavoidable feature of the industry, but it makes executing during the holidays critical to survival. Since there's sparse data in 2016 and the data ends before the 2018 holiday season, we won't get to see this seasonality repeat in the data. But our second observation is not about what we see on this chart, but what we can infer: that this decline in sales was indeed temporary - or that there was a business model pivot. Softbank wouldn't have touched this company otherwise!
 
 # Growing, Growing, Gone?
 
@@ -116,6 +118,6 @@ select * from olist.reviews_by_score
 
 Yes! Almost half of customers that gave a one-star review either received their order late, or never received it at all. Compare that to four- and five-star reviews, where almost every order is delivered on time. This suggests that if Olist wants to improve customer satisfaction, improving their last-mile will have huge ROI, plausibly reducing one-star reviews by up to 50%. Again, it's hard not to compare Olist to Amazon, which has invested an enormous amount of capital into owning and operating their own proprietary and ruthlessly efficient delivery network. It's worth it; the data shows that customers really really hate getting their packages late.
 
-So if I was advising Olist in the summer of 2018, and they handed me this data, I'd tell them that their problem isn't the recent dip in sales - it's that customers aren't coming back. Make sure that customers can actually find what they're looking for, and then get it to them on time.
+So if I was advising Olist in the summer of 2018, and they handed me this data, I'd tell them that their problem isn't the recent dip in sales - it's that customers aren't coming back. Make sure that customers can actually find what they're looking for, and then get it to them on time. If I had the data, what I'd dive into next would be website traffic and customer demographics. That's where we could start finding even more of the "why" behind this company's performance.
 
-I organized all the data used in this project using the dbt platform and DuckDB - you can check it out <a href="https://github.com/shaunish/olist_dbt" target="_blank" style="color: blue;">here</a>. All the charts were made using <a href="https://evidence.dev" target="_blank" style="color: blue;">Evidence.dev</a>. If you want to check out the source code, it's available at my Github <a href="https://github.com/shaunish/shaunish.github.io/tree/master/olist" target="_blank" style="color: blue;">here</a>. Thanks for reading!
+Thanks for reading!
