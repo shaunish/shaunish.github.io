@@ -2,9 +2,9 @@
 title: "Olist: An E-Commerce Marketplace Case Study"
 ---
 
-<a href="https://pt.wikipedia.org/wiki/Olist" target="_blank">Olist</a> is a large online marketplace based in Brazil. They allow merchants to list products on their platform and fulfill orders through Olist's delivery network. In other words, it's Brazil's version of Amazon (the company, not the rainforest). Olist is a relatively young company; it was founded in 2015 and is still a private company, although they've garnered hundreds of millions in startup funding from Softbank, Redpoint, and other prominent venture capital firms. 
+<a href="https://pt.wikipedia.org/wiki/Olist" target="_blank" style="color: blue;">Olist</a> is a large online marketplace based in Brazil. They allow merchants to list products on their platform and fulfill orders through Olist's delivery network. In other words, it's Brazil's version of Amazon (the company, not the rainforest). Olist is a relatively young company; it was founded in 2015 and is still a private company, although they've garnered hundreds of millions in startup funding from Softbank, Redpoint, and other prominent venture capital firms. 
 
-A few years ago, Olist released [anonymized transaction data](https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce) from their first two years in business. This is cool! It's rare to get such granular transaction-level data in the e-commerce space, especially from a startup. Let's take a look at it and see what we can learn.
+A few years ago, Olist released <a href="https://www.kaggle.com/datasets/olistbr/brazilian-ecommerce" target="_blank" style="color: blue;">anonymized transaction data</a> from their first two years in business. This is cool! It's rare to get such granular transaction-level data in the e-commerce space, especially from a startup. Let's take a look at it and see what we can learn.
 
 
 # 'Tis the Season
